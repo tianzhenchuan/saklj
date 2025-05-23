@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+
+  <script>
+    // 函数动态参数
+    // function getSum() {
+    //   //arguments 动态参数,只存在于函数里面
+    //   //1.是伪数组
+    //   console.log(arguments)
+    //   let sum = 0
+    //   for (let i = 0; i < arguments.length; i++) {
+    //     sum += arguments[i]
+    //   }
+    //   console.log(sum)
+    // }
+    // getSum(1, 2, 3, 54, 6, 4)
+
+
+    //剩余参数
+    //1 ...是语法符号,置于最末函数形参之前,用于获取多余的实参
+    //借助 ... 获取的剩余实参,是个真数组
+
+    // function config(baseURL, ...other) {
+    //   console.log(baseURL) //'http://baidu.com'
+    //   console.log(other)
+    //   //使用的时候 不用使用....
+    // }
+
+    // //调用函数
+    // config('http://baidu.com', 'get', 'json')
+
+
+    // 剩余参数主要的使用场景是?
+    //用于获取多余的实参
+
+    //2. 剩余参数和动态参数区别是什么? 开发中提倡使用哪一个?
+    //动态参数是伪数组
+    //剩余参数是真数组
+    //开发中尽量使用剩余参数
+
+
+    // 展开运算符 ...
+    // const arr = [1, 5, 3, 8, 2]
+    // console.log(...arr)  // 15 382  将一个数组进行展开  不会修改原数组
+    //典型运用场景: 求数组最大值(最小值),合并数组等
+
+
+    //箭头函数 简洁语法
+    //如果函数体只有一行代码,可以写到一行上,并且无需return直接返回值
+    // const form = document.querySelector('form')
+    // //阻止表单默认提交时间
+    // form.addEventListener('click', ev => ev.preventDefault())
+
+    //箭头函数可以直接返回一个对象
+    // const fn = (uname) => ({ uname: uname })
+    // console.log(fn('刘德华'))
+
+    // const fn = x => console.log(x)
+    //总结
+    //1. 箭头函数属于表达式函数,因此不存在函数提升
+    // 2. 箭头函数只有一个参数时可以省略圆括号()
+    //3. 箭头函数函数体只有一行代码时可以省略花括号{},并自动做为返回值被返回
+    //4. 加括号的函数体返回对象字面量表达式
+
+    // //;利用箭头函数来求和
+    // const getSum = (...arr) => {
+    //   console.log(arr)
+    //   let sum = 0
+    //   for (let i = 0; i < arr.length; i++) {
+    //     sum += arr[i]
+    //   }
+    //   return sum
+    // }
+    // const a = getSum(1, 32, 3)
+    // console.log(a)
+
+    //箭头函数this
+    // 在箭头函数出现之前, 每一个新函数根据它是被如何调用的来定义这个函数的this值, 非常令人讨厌
+
+    // console.log(this) //此处为window
+    // const sayHi = function () {
+    //   console.log(this) //普通函数指向调用者,此处为window
+    // }
+
+    // btn.addEventListener('click', function () {
+    //   console.log(this) //当前this 指向btn
+    // }
+
+    // })
+
+    //箭头函数不会创建自己的this,它指回从自己的作用域链的上一层沿用this
+
+    // const obj = {
+    //   uname: 'pink老师',
+    //   sayHi: function () {
+    //     conosle.log('this', 指向调用者) //obj
+    //     let i = 10
+    //     const count = () => {
+    //       console.log(this) //obj  //指回从自己的作用域链上的上一层this
+    //     }
+    //     count()
+    //   }
+    // }
+    // obj.sayHi()
+
+    // //箭头函数, 此时this指向了window
+    // btn.addEventListener('click', () => {
+    //   console.log(this)
+    // })
+
+    // //普通函数,此时this指向了Dom对象
+    // btn.addEventListener('click', function () {
+    //   console.log(this)
+    // })
+    // //在法中 使用箭头函数前需要考虑函数中this的值,时间回调函数使用箭头函数时,this为全局的window,因此 Dom事件回调函数为了简便
+    // 还是不太推荐使用箭头函数
+
+
+    //结构赋值
+    // 目标: 知道结构的语法及分类, 使用解构简介语法快速为变量赋值
+
+    // const arr = [100, 60, 80]
+    // console.log(arr[0]) //最大值
+    // console.log(arr[1]) //最小值
+    // console.log(arr[2])  //平均值
+
+    // const arr = [100, 60, 80]
+
+    //以上不好记忆,要么书写麻烦,此时可以使用解构赋值的方法让代码更简洁
+    // const [max, min, avg] = [100, 60, 80]
+    // console.log(max) //最大值100
+    // console.log(min) //最小值 60
+    // console.log(avg) //最小值 80
+    //数组结构
+    // 数组结构是将数组的单元值快速批量赋值给一系列变量的简洁语法
+    //基本语法
+    //1. 赋值运算符=左侧的[]用于批量声明变量,右侧数组的单元值将被赋值给左侧的变量
+    //2. 变量的顺序对应数组单元值的位置一次进行赋值操作
+
+    // //普通数组
+    // const arr=[1,2,3]
+    // //批量声明变量abc
+    // //同时将数组单元值123 依次赋值给变量abc
+    // const [a,b,c]=arr
+    // console.log(a) //1
+    // console.log(b) //2
+    // console.log(c) //3
+
+    //3.1 基本语法 典型应用交互2个变量
+    // let a = 1
+    // let b = 3;  //为什么要加分号
+    // [b, a] = [a, b]
+    // console.log(a) //3
+    // console.log(b) //1
+
+
+    // //1.  数组结构赋值的作用是什么?
+    // // 是将数组的单元值快速批量赋值给一系列变量的简洁语法
+    // //2. hs前面有哪两种情况需要加分号的?
+    // //1. 立即执行函数
+    // //2. 数组结构
+
+    // //请将最大值和最小值函数返回值结构max和min两个变量
+    // function getValue() {
+    //   return [100, 60]
+    // }
+    // const [max, min] = getValue()
+    // console.log(max, min)
+
+
+    //解决剩余参数,变量少,单元值多
+    // const [a, b, ...c] = [1, 2, 3, 4]
+    // console.log(a)//1
+    // console.log(b) //2
+    // //真数组
+    // console.log(c) // [3,4]
+
+    //防止undefined 传递
+    // const [a = 0, b = 0] = [1, 2]
+    // console.log(a) //1
+    // console.log(b) //2
+
+    //按需导入,忽略某些返回值:
+    // const [a,,c,d]=['1','2','3','4']
+    // a 1 c3 d4
+    //多为数组结构
+    // const [a, b, [c, d]] = [1, 2, [3, 4]]
+    // // a1 b2  c3 d
+
+    //对象结构
+    // 对象结构是将对象属性和方法快速批量赋值给一系列变量的简洁语法
+    // 1. 基本语法
+    // 赋值运算符=左侧的{} 用于批量声明变量,右侧对象的属性值将被赋值给左侧的变量
+    // 2. 对象属性的值将被赋值给与属性名相同的变量
+    // 3. 注意结构的变量名不要和外面的变量名冲突否则报错
+    // 4. 对象中找不到与变量名一致的属性时变量值为undefined
+
+    // //普通对象
+    // const user = {
+    //   name: '小明',
+    //   age: 18
+    // };
+
+    // //批量声明变量name age
+    // //同时将数组单元值  小明 18 依次赋值给变量name age
+    // const { name, age } = user
+
+    // console.log(name)  //小明
+    //age =18
+
+    //构造函数
+    //构造函数: 是一种特殊的函数, 主要用来初始化对象
+    //使用场景: 常规的{...}语法允许创建一个对象, 比如我们创建了佩奇对象,继续创建乔治对象还需要重新写一遍,此时可以通过构造函数
+    // 来快速创建多个类似的对象
+
+    // function Pig(name, age, gender) {
+    //   this.name = name
+    //   this.age = age
+    //   this.gener = gender
+    // }
+
+    // //创建佩奇对象
+    // const Peppa = new Pig('佩奇', 6, '女')
+    // console.log(Peppa) //{name:'佩奇',age:6,gener:'女'}
+    // // 构造函数在技术上是常规函数
+    // 不过有两个约定: 它们的命名以大写字母开头, 它们只能以new操作符来执行
+    // 创建构造函数: 说明
+    // 1. 使用new关键字调用函数的行为被称为实例化
+    // 2. 实例化构造函数时没有参数时可以省略()
+    // 3. 构造函数内部无需写return, 返回值即为新创建的对象
+    // 4. 构造函数内部的return 返回的值无效, 所以不要写return
+    // new Object() new Date() 也是实例化构造函数
+
+
+
+    // //实例化执行过程
+    // 说明:
+    // 1. 创建新对象
+    // 2. 构造函数this指向新对象
+    // 3. 执行构造函数代码, 修改this, 添加新的属性
+    // 4. 返回新对象
+
+
+    // // 实例成员 & 静态成员
+    // //实例成员: 通过构造函数创建的对象称为实例对象,实例对象中的属性和方法称为实例成员(实例属性和实例方法)
+
+    // //说明:
+    // 1. 为构造函数传入参数, 创建结构相同但值不同的对象
+    // 2. 构造函数创建的实例对象彼此独立互不影响
+
+    // 2.静态成员: 构造函数上的属性和方法称为静态成员
+    // function Pig(name) {
+    //   this.name = name
+    // }
+    // Pig.eyes = 2 //静态属性
+    // Pig.sayHi = function () { //静态方法
+    //   console.log(this)
+    // }
+    // Pig.sayHi()
+    // console.log(Pig.eyes)
+
+    // 实例成员(属性和方法)写在谁身上 ?
+    //   实例对象的属性和方法即为实例成员
+    // 实例对象相互独立, 实例成员当前实例对象使用
+
+    // 静态成员(属性和方法)写在谁身上 ?
+    //   构造函数的属性和方法被称为静态成员
+    // 静态成员只能通过构造函数访问
+
+
+
+    //Object
+    // //学习三个常用静态方法(静态方法就是只有构造函数Object可以调用的)
+    // 作用: Object.keys 静态方法获取对象中所有属性(键)
+    // 语法:
+    // const o = { name: '佩奇', age: 6 }
+    // //获得对象的所有键,并且返回是一个数组
+    // const arr = Object.keys(o)
+    // console.log(arr)  //['name','age']
+
+
+    // const o = { uname: 'pink', age: 18 }
+    // //1. 获得所有的属性名
+    // console.log(Object.keys(o))  //返回数组['uname','age']
+
+    // //2. 获得所有的属性值
+    // console.log(Object.values(o)) //['pink',18]
+
+    // Aaary  数组常见实例方法-核心方法
+
+    // forEach 遍历数组  不返回数组,经常用于查找遍历数组元素
+    // filter 过滤数组, 返回新数组,返回的是筛选满足条件的数组元素
+    // map 迭代数组, 返回新数组, 返回的是处理之后的数组元素,想要使用返回的新数组
+    // reduce 累计器, 返回累计处理的结果,经常用于求和等
+
+    //数组reduce方法
+    // arr.reduce(function (上一次值, 当前值) { }, 初始值)
+    //用对象的属性查找数组里的对象
+    // var inventory = [
+    //   { name: 'apples', quantity: 2 },
+    //   { name: 'bananas', quantity: 0 }
+    // ];
+
+    // //回调函数
+    // function findCherries(fruit) {
+    //   return fruit.name === 'bananas';
+    // }
+
+    // console.log(inventory.find(findCherries))
+
+    // //数组常见方法
+    // join() 数组元素拼接为字符串, 返回字符串(重点)
+    // find() 查找元素, 返回符合测试条件的第一个数组元素只, 如果没有符合条件的则返回undefiend
+    // every() 检测数组所有元素是否都符合指定条件, 如果所有元素都通过检测返回true, 否则返回false
+    // some 检测数组中的元素是否满足指定条件, 如果数组中有元素满足条件返回true, 否则返回false
+
+    // concat 合并两个数组, 返回生成新数组
+    // sort 对原数组单元值排序
+
+    // splice 删除或替换原数组单元
+    // reverse 翻转数组
+    // findIndex 查找元素的索引值  
+
+
+    //在js 中的字符串, 数值, 布尔具有对象的使用特征,如具有属性和方法 
+
+    //字符串类型
+    const str = 'hellow world! '
+    //统计字符的长度(字符数量)
+    console.log(str.length)
+
+    //数值类型
+    const price = 12.345
+
+    //保留两位小数
+    // price.toFixed(2)
+
+    // 之所以具有对象特征的原因是字符串, 数值, 布尔类型数据是js底层使用object构造函数包装来的, 被称为包装类型
+
+    //   length 用来获取字符串的长度
+    // split(';') 用来将字符串拆分成数组
+    // substring('需要截取的第一个字符的索引[,结束的索引号]'), 用于字符串截取, 如果省略了索引号, 默认取到最后
+    // 结束的索引号不包含想要截取的部分
+    // startsWith('检测字符串[,检测位置索引号]')检测是否以某字符开头
+    //   includes 判断一个字符串是否包含在另一个字符串中, 根据情况返回true 或false
+
+    //   toUpperCase 将字母转换成大写
+    //   toLowerCase  用于字母转换成小写
+    //   indexof 检测是否包含某字符
+    //   endsWith 检测是否以某字符结尾
+    //   replace 用于替换字符串, 支持正则匹配
+
+    // 1.2 面向对象编程(oop)
+    // 在面向对象程序开发思想中, 每一个对象都是功能中心, 具有明确分工
+    // 面向对象编程具有灵活, 代码可复用, 容易维护和开发的优点, 更适合多人合作的大型软件项目
+    // 面向对象的特性: 封装性, 继承性, 多态性
+
+    // 2. 构造函数
+    // 封装是  面向对象思想中比较重要的一部分, js面向对象可以通过构造函数实现的封装
+    // 前面我们学过的构造函数方法很好用, 但是存在浪费内存的问题
+
+    // 3. 原型
+    // 目标: 能够利用原型对象实现方法共享
+    // 构造函数通过原型分配的函数是所有对象所共享的
+    // js规定, 每一个构造函数都有一个prototype属性, 指向另一个对象, 所以我们也称为原型对象
+    // 这个对象可以挂载函数, 对象实例化不会多次创建原型上函数, 节约内存
+    // 我们可以把哪些不变的方法, 直接定义在prototype对象上, 这样所有对象的实例就可以共享这些方法
+    // 构造函数和原型对象中的this都指向实例化的对
+
+
+  </script>
+</body>
+
+</html>

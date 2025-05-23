@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    .container {
+      width: 100vw;
+      height: 100vh;
+      background: skyblue;
+      /* 声明内部使用网格布局,对直接子元素生效 */
+      display: grid;
+      /* 设置行数和行高度 */
+      grid-template-rows: 1fr 1fr 1fr;
+      /* grid-template-rows: repeat(3, 1fr); */
+      /* grid-template-rows: 100px repeat(2, 1fr); */
+
+      /* 设置列数和列宽度 */
+      grid-template-columns: 1fr 1fr 1fr;
+      /* grid-template-columns: 200px repeat(1, 1fr) 50px; */
+      /* 网格间距 */
+      gap: 10px;
+      /* 行间距 */
+      /* grid-row-gap: 50px; */
+      /* 列间距 */
+      /* grid-column-gap: 100px; */
+
+    }
+
+    .item {
+      border: 1px solid red;
+      background-color: yellow;
+      /* box-sizing: border-box; */
+      color: white;
+      font-size: 30px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* 子元素 */
+    .one {
+      /* 这个单元格跨越2列 */
+      grid-column: span 2;
+    }
+
+    .two {
+      /* 跨行  注意: 删掉的格子应该是对应的*/
+      grid-row: span 3;
+    }
+
+    .three {
+      /* 网格区域  span 行数 span 列数*/
+      grid-area: span 2/span 2;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="container">
+    <div class="item two">1</div>
+    <div class="item one">1</div>
+    <!-- <div class="item">1</div> -->
+    <div class="item three">1</div>
+    <!-- <div class="item">1</div> -->
+    <!-- <div class="item">1</div>
+    <div class="item">1</div>
+    <div class="item">1</div> -->
+
+  </div>
+  <script>
+
+    // 网格布局 
+    // 基本概念
+    // 为容器指定: display: grid, 开启网格布局
+    // 采用网格布局的父元素盒子, 称为容器
+    // 容器内部, 采用网格定位的子元素, 称为项目(item)
+    // 网格内子元素可以是块级元素, 也可以是行内元素
+    // 网格项的垂直项被称为列, 可由grid - template - columns划分列
+    // 网格项的水平项被称为行, 可由grid - template - rows 划分行
+    // 列之间的间隔称为间隙(间距): 可由gap设置间隙
+
+
+  </script>
+
+</body>
+
+</html>

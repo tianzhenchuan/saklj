@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <script>
+        // //constructor就是类的构造函数,只在用new创建实例时执行一次,主要负责给实例初始化(绑定属性),是类的启动器 
+
+        // class Animal { }
+
+        // class Person {
+        //     constructor() {
+        //         console.log('person ctor');
+        //     }
+        // }
+
+        // class Vegetable {
+        //     constructor() {
+        //         this.color = 'orange';
+        //     }
+        // }
+
+        // let a = new Animal();
+        // let p = new Person();
+        // let v = new Vegetable();
+        // console.log(v.color); //orange
+
+        // class Person { }
+
+        // let p1 = new Person();
+
+        // console.log(p1.constructor === Person); //true
+        // conosle.log(p1 instanceof Person); //true
+        // console.log(p1 instanceof Person.constructor); //false
+
+        // let p2 = new Person.constructor();
+
+        // console.log(p2.constructor === Person); //false
+        // console.log(p2 instanceof Person); //false
+        // console.log(p2 instanceof Person.construcotr); //true
+
+        //类可以像函数一样在任何地方定义,比如在数组中
+        // let classList = [
+        //     class {
+        //         constructor(id) {
+        //             this._id = id;
+        //         }
+        //     }
+        // ];
+
+        // function createInstance(classDefinition, id) {
+        //     return new classDefinition(id);
+        // }
+
+        // let foo = createInstance(classList[0], 3141);
+        // console.log(foo);  //classList{_id:3141}
+
+        // //与立即调用函数表达式相似,类也可以立即实例化:
+        // //因为是一个类表达式,所以类名是可选的
+        // let p = new class Foo {
+        //     construcotr(x) {
+        //         console.log(x);
+        //     }
+        // }('bar'); //bar
+        // console.log(p); //Foo {}
+
+        class Person {
+            constructor() {
+                //这个例子先使用对象包装类型定义一个字符串
+                //为的是在下面测试两个对象的相等性
+                this.name = new String('Jack');
+                this.sayName = () => console.ll;
+            }
+        }
+
+    </script>
+
+</body>
+
+</html>
