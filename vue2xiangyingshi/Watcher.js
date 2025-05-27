@@ -9,7 +9,10 @@ export default class Watcher {
     }
     update() {
         this.run();
-    }
+    },
+    masster() {
+        let a = '我是在master做的功能';
+    },
     get() {
         //进入依赖收集阶段,让全局的Dep.target设置为Watcher本身,那么就是进入依赖收集阶段  
         Dep.target = this;
