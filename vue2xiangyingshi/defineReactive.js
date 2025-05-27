@@ -44,3 +44,35 @@ export default function defineReactive(data, key, val) {
     });
 }
 
+
+function defineReactive(obj, key, val) {
+    const dep = new Dep();
+
+    //递归观察子属性
+    let childOb = observe(val);
+
+    Object.defineProperty(obj, key, {
+        enumerable: true,
+        configurable: true,
+        get() {
+            //依赖收集阶段,将当前 watcher添加到依赖中
+            if (Dep.target) {
+                dep.depend();
+                if (childOb) {
+                    childOb.dep.depend();
+                }
+            }
+            return val;
+
+        },
+        set(newVal) {
+            if (newVal === val) return;
+            val = newVal;
+            //对新值进行递归响应式处理,如果它是对象或数组,并赋值给childOb
+            childOb = observe(newVal);
+            //通知依赖当前属性的Watcher(计算属性,渲染函数,侦听器等)重新执行 
+            dep.notify();
+        }
+
+    });
+}
