@@ -34,3 +34,42 @@ export default class Observer {
         }
     }
 };
+
+class Observer {
+    constructor(value) {
+
+        //要被观察的数据对象或数组
+        this.value = value;
+        //实例化一个依赖收集器Dep,用于在这个对象本身发生变化时通知依赖更新
+        this.dep = new Dep();
+
+        //标记这个对象已经被响应式处理过,防止重复处理
+        object.defineProperty(value, '__ob__', {
+            value: this,
+            enumerable: false,
+        });
+        //如果是数组
+        if (Array.isArray(value)) {
+            //重写数组方法实现响应式
+            this.augmentArray(value);
+            //递归监听数组元素 
+            this.observeArray(value);
+        } else {
+            //如果是普通对象,给对象的所有袁术添加getter.setter 
+            this.walk(value);
+        }
+
+    }
+
+    //对象属性递归响应式处理
+    walk(obj) {
+        Object.keys(obj).forEach(key => {
+            defineReactive(obj, key, obj[key]);
+        });
+    }
+    //重写数组原型方法 
+    augmentArray(arr) {
+        arr.__proto__ = arrayMethods;
+    }
+}
+

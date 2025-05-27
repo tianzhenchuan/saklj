@@ -51,4 +51,3 @@ methodsToPatch.forEach((methodName) => {
     }, false);
 });
 
-
