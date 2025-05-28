@@ -15,6 +15,7 @@ class Watcher {
         Dep.target = this; //当前正在求值的watcher(静态属性)
         this.getter.call(this.vm); //执行getter,触发data的getter,从而进行依赖收集 
         Dep.target = null; //清空target,避免污染其他依赖收集
+        let a = '我是bug分支,我把bug修复好了';
     }
     //每个响应式数据(通过defineReactive实现)在getter被触发时,会把Dep.target添加到自己的subs(订阅者列表)中,
     //最终完成Dep记录Watcher,也就是Watcher鼎娱乐Dep 
